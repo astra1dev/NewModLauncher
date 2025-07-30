@@ -1,0 +1,252 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:AvaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+        xmlns:local="clr-namespace:NewModLauncher.Views"
+        xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+        xmlns:controls="clr-namespace:NewModLauncher.Controls"
+        x:Class="NewModLauncher.MainWindow"
+        Icon="Assets/nm.ico"
+        Title="NewMod Launcher"
+        TransparencyLevelHint="Blur"
+        Background="Transparent"
+        MinWidth="900"
+        MinHeight="600">
+
+  <Grid>
+    <!-- Background with blur effect -->
+    <Panel>
+      <Image Source="Assets/background.png" Stretch="UniformToFill" Opacity="0.07" />
+      <Border Background="#1E1E1E" Opacity="0.85" />
+    </Panel>
+
+    <!-- Main Layout -->
+    <Grid RowDefinitions="Auto,*">
+      <!-- Modern Header Bar -->
+      <Border Background="#1E1E1E" 
+              Grid.Row="0"
+              Height="56"
+              BoxShadow="0 1 10 0 #20000000">
+        <Grid ColumnDefinitions="Auto,*,Auto" Margin="20,0">
+          <!-- Logo and Title -->
+          <StackPanel Orientation="Horizontal" 
+                      VerticalAlignment="Center"
+                      Spacing="12">
+            <Image Source="Assets/nm.ico" Width="28" Height="28" />
+            <TextBlock Text="NewMod Launcher"
+                     VerticalAlignment="Center"
+                     Foreground="White"
+                     FontSize="20"
+                     FontWeight="SemiBold" />
+          </StackPanel>
+
+          <!-- Version Info -->
+          <StackPanel Grid.Column="2" 
+                      Orientation="Horizontal" 
+                      VerticalAlignment="Center"
+                      Spacing="16">
+            <TextBlock x:Name="LauncherVersionText"
+                       Text="Launcher v1.0.0"
+                       Foreground="#B0B0B0"
+                       FontSize="13"
+                       VerticalAlignment="Center" />
+            <TextBlock x:Name="ModVersionText"
+                       Text="Mod v1.0.0"
+                       Foreground="#B0B0B0"
+                       FontSize="13"
+                       VerticalAlignment="Center" />
+            <TextBlock x:Name="GameVersionText" Text="Among Us Version: Unknown" Foreground="#CCCCCC" FontSize="12"/>
+          </StackPanel>
+        </Grid>
+      </Border>
+
+      <!-- Content Area -->
+      <Grid Grid.Row="1" RowDefinitions="*,Auto">
+        <!-- Main Content -->
+        <TabControl x:Name="MainTabControl"
+                    Margin="20"
+                    Background="#80000000">
+          <TabControl.Transitions>
+            <Transitions>
+              <DoubleTransition Property="Opacity" Duration="0:0:0.3"/>
+            </Transitions>
+          </TabControl.Transitions>
+
+          <!-- Home Tab -->
+          <TabItem Header="Home">
+            <Grid ColumnDefinitions="1*,1*" Margin="0,20,0,0">
+              <!-- Left Panel: Status and Info -->
+              <Border Background="#25FFFFFF"
+                      CornerRadius="8"
+                      Margin="0,0,10,0">
+                <Grid RowDefinitions="Auto,*" Margin="20">
+                  <TextBlock Text="Welcome to NewMod Launcher"
+                             FontSize="22"
+                             FontWeight="SemiBold"
+                             Foreground="White"
+                             Margin="0,0,0,16" />
+
+                  <Border Grid.Row="1" 
+                          Background="#15FFFFFF" 
+                          CornerRadius="6"
+                          Padding="20">
+                    <StackPanel Spacing="20">
+                      <!-- Status Card -->
+                      <Border Background="#25FFFFFF" 
+                              CornerRadius="6" 
+                              Padding="16"
+                              Classes="card">
+                        <StackPanel Spacing="12">
+                          <TextBlock Text="Status" 
+                                     FontWeight="SemiBold" 
+                                     FontSize="16" />
+                          <Grid ColumnDefinitions="Auto,*">
+                            <Border x:Name="StatusIconBorder" 
+                                    Width="40" 
+                                    Height="40" 
+                                    CornerRadius="20" 
+                                    Background="#6264A7"
+                                    VerticalAlignment="Center">
+                              <TextBlock x:Name="StatusIcon" 
+                                         Text="✓" 
+                                         FontSize="20" 
+                                         HorizontalAlignment="Center" 
+                                         VerticalAlignment="Center" />
+                            </Border>
+                            <StackPanel Grid.Column="1" 
+                                        Margin="16,0,0,0" 
+                                        VerticalAlignment="Center">
+                              <TextBlock x:Name="StatusText"
+                                         Text="Ready to play"
+                                         FontSize="16"
+                                         Foreground="White" />
+                              <TextBlock x:Name="StatusSubText"
+                                         Text="All components are up-to-date"
+                                         FontSize="13"
+                                         Foreground="#B0B0B0" />
+                            </StackPanel>
+                          </Grid>
+                        </StackPanel>
+                      </Border>
+
+                      <!-- Game Location -->
+                      <Border Background="#25FFFFFF" 
+                              CornerRadius="6" 
+                              Padding="16">
+                        <StackPanel Spacing="12">
+                          <TextBlock Text="Game Location" 
+                                     FontWeight="SemiBold" 
+                                     FontSize="16" />
+                          <Grid ColumnDefinitions="*,Auto">
+                            <TextBox x:Name="GamePathDisplay"
+                                     IsReadOnly="True"
+                                     Background="#2D2D30"
+                                     VerticalAlignment="Center" />
+                            <Button Grid.Column="1"
+                                    Content="Change"
+                                    Classes="secondary"
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
+                                    Click="OnChangePathClick" />
+                          </Grid>
+                        </StackPanel>
+                      </Border>
+                    </StackPanel>
+                  </Border>
+                </Grid>
+              </Border>
+
+              <!-- Right Panel: Actions -->
+              <Border Grid.Column="1"
+                      Background="#25FFFFFF"
+                      CornerRadius="8"
+                      Margin="10,0,0,0">
+                <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+                  <TextBlock Text="Actions"
+                             FontSize="22"
+                             FontWeight="SemiBold"
+                             Foreground="White"
+                             Margin="0,0,0,16" />
+
+                  <Grid Grid.Row="1" 
+                        RowDefinitions="Auto,*,Auto">
+                    <!-- Update Section -->
+                    <Border Background="#15FFFFFF" 
+                            CornerRadius="6"
+                            Padding="20"
+                            Margin="0,0,0,20">
+                      <StackPanel Spacing="16">
+                        <TextBlock Text="Updates" 
+                                   FontWeight="SemiBold" 
+                                   FontSize="16" />
+
+                        <Button Content="Check for Updates"
+                                Classes="secondary"
+                                HorizontalAlignment="Stretch"
+                                Click="OnCheckUpdatesClick" />
+
+                        <controls:CustomProgressBar x:Name="DownloadProgressBar"
+                            IsVisible="False"
+                            Maximum="100"
+                            Value="0"
+                            ShowDownloadProgressText="True"
+                            DownloadItemName=""
+                            Height="36"
+                            Margin="0,5,0,5"/>
+                      </StackPanel>
+                    </Border>
+
+                    <!-- Play Section -->
+                    <Border Grid.Row="2"
+                            Background="#15FFFFFF" 
+                            CornerRadius="6"
+                            Padding="20">
+                      <StackPanel Spacing="16">
+                        <TextBlock Text="Play" 
+                                   FontWeight="SemiBold" 
+                                   FontSize="16" />
+
+                        <Button x:Name="LaunchGameButton"
+                                Content="Launch Game"
+                                Classes="primary"
+                                HorizontalAlignment="Stretch"
+                                Height="50"
+                                FontSize="16"
+                                Click="OnLaunchGameClick" />
+                      </StackPanel>
+                    </Border>
+                  </Grid>
+                </Grid>
+              </Border>
+            </Grid>
+          </TabItem>
+
+          <!-- Mods Tab -->
+          <TabItem Header="Mods">
+            <local:ModsView/>
+          </TabItem>
+
+          <!-- Settings Tab -->
+          <TabItem Header="Settings">
+            <local:SettingsView/>
+          </TabItem>
+
+          <!-- Beta Testers Tab -->
+          <TabItem x:Name="BetaTab" Header="Beta Testers" IsVisible="False">
+            <local:BetaTestersView/>
+           </TabItem>
+        </TabControl>
+
+        <!-- Footer -->
+        <Border Grid.Row="1"
+                Background="#1A1A1A"
+                Height="40"
+                Padding="20,0">
+          <TextBlock Text="NewMod Launcher v1.0.0"
+                     Foreground="#808080"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center" />
+        </Border>
+      </Grid>
+    </Grid>
+  </Grid>
+</Window>

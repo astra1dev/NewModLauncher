@@ -1,0 +1,178 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:NewModLauncher.Views"
+             xmlns:vm="clr-namespace:NewModLauncher.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NewModLauncher.Views.ModsView"
+             x:DataType="vm:ModsViewModel">
+
+  <ScrollViewer>
+    <StackPanel Name="MainStackPanel" Spacing="20" Margin="0,20,0,0">
+      <!-- Compatible Mods Section -->
+      <Border Background="#25FFFFFF"
+              CornerRadius="8"
+              Padding="20">
+        <StackPanel Spacing="16">
+          <TextBlock Text="Compatible Mods"
+                     FontSize="18"
+                     FontWeight="SemiBold"
+                     Foreground="White" />
+
+          <TextBlock Text="These mods are compatible with NewMod and can be used together."
+                     Foreground="#B0B0B0" 
+                     TextWrapping="Wrap"
+                     Margin="0,0,0,10" />
+
+          <!-- Dynamic Mods List -->
+          <ItemsControl Name="ModsItemsControl" ItemsSource="{Binding Mods}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="vm:ModViewModel">
+                <Border Background="#15FFFFFF"
+                        CornerRadius="6"
+                        Padding="16"
+                        Margin="0,8,0,8">
+                  <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto">
+                    <!-- Mod Icon/Image -->
+                    <Border Grid.Row="0" 
+                            Grid.Column="0"
+                            Grid.RowSpan="2"
+                            Width="64" 
+                            Height="64" 
+                            CornerRadius="8" 
+                            Background="#30FFFFFF"
+                            Margin="0,0,16,0">
+                      <Panel>
+                        <TextBlock IsVisible="{Binding IconImage, Converter={x:Static ObjectConverters.IsNull}}" 
+                                   Text="{Binding IconText}" 
+                                   FontSize="24" 
+                                   FontWeight="Bold" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" 
+                                   Foreground="#6264A7" />
+                        <Image IsVisible="{Binding IconImage, Converter={x:Static ObjectConverters.IsNotNull}}"
+                               Source="{Binding IconImage}"
+                               Stretch="UniformToFill"
+                               Width="46"
+                               Height="46"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
+                      </Panel>
+                    </Border>
+
+                    <!-- Mod Title -->
+                    <TextBlock Grid.Row="0" 
+                               Grid.Column="1" 
+                               Text="{Binding Name}" 
+                               FontSize="16" 
+                               FontWeight="SemiBold"
+                               Foreground="White"
+                               VerticalAlignment="Bottom" />
+
+                    <!-- Mod Version -->
+                    <TextBlock Grid.Row="1" 
+                               Grid.Column="1" 
+                               Text="{Binding Version}" 
+                               FontSize="14"
+                               Foreground="#B0B0B0"
+                               VerticalAlignment="Top" />
+
+                    <!-- Compatibility Badge -->
+                    <Border Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Background="{Binding IsCompatible, Converter={StaticResource CompatibilityColorConverter}}"
+                            CornerRadius="10"
+                            Padding="8,4">
+                        <TextBlock Text="{Binding CompatibilityText}"
+                                  FontSize="11"
+                                  Foreground="White"/>
+                    </Border>
+
+                    <!-- Mod Description -->
+                    <TextBlock Grid.Row="2" 
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               Text="{Binding Description}"
+                               TextWrapping="Wrap"
+                               Margin="0,10,0,0"
+                               Foreground="White" />
+
+                    <!-- Installation Status -->
+                    <TextBlock Grid.Row="2" 
+                               Grid.Column="1"
+                               Text="{Binding IsInstalled, Converter={StaticResource BoolToInstallStateConverter}}"
+                               HorizontalAlignment="Right"
+                               Margin="0,0,0,10"
+                               Foreground="{Binding IsInstalled, Converter={StaticResource BoolToColorConverter}}" />
+
+                    <!-- Mod Actions -->
+                    <StackPanel Grid.Row="3"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Orientation="Horizontal"
+                                Spacing="10"
+                                Margin="0,16,0,0">
+                      <!-- Install/Update button -->
+                      <Button Content="{Binding InstallButtonText}"
+                              Classes="primary"
+                              Tag="{Binding Name}"
+                              Click="OnInstallModClick"
+                              IsEnabled="{Binding IsCompatible}"
+                              IsVisible="{Binding !IsInstalled}" />
+
+                      <!-- Uninstall button -->
+                      <Button Content="Uninstall"
+                              Classes="secondary"
+                              Tag="{Binding Name}"
+                              Click="OnUninstallModClick"
+                              IsVisible="{Binding IsInstalled}"
+                              Foreground="White"
+                              Background="#B33636"
+                              MinWidth="80"/>
+                      <Button Content="View on GitHub"
+                              Classes="secondary"
+                              Tag="{Binding Name}"
+                              Click="OnViewModRepositoryClick" />
+                    </StackPanel>
+                  </Grid>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+
+          <!-- More Mods Section - Empty state (only shown when no mods available) -->
+          <Border Background="#15FFFFFF"
+                  CornerRadius="6"
+                  Padding="20"
+                  Margin="0,16,0,0"
+                  IsVisible="{Binding !Mods.Count}">
+            <StackPanel HorizontalAlignment="Center" 
+                        VerticalAlignment="Center"
+                        Spacing="10">
+              <TextBlock Text="More Compatible Mods"
+                         FontSize="16"
+                         FontWeight="SemiBold"
+                         Foreground="White"
+                         HorizontalAlignment="Center" />
+
+              <TextBlock Text="Additional compatible mods will appear here when available."
+                         TextWrapping="Wrap"
+                         Foreground="#B0B0B0"
+                         HorizontalAlignment="Center" />
+            </StackPanel>
+          </Border>
+        </StackPanel>
+      </Border>
+    </StackPanel>
+  </ScrollViewer>
+
+  <UserControl.Resources>
+    <views:BoolToInstallStateConverter x:Key="BoolToInstallStateConverter"/>
+    <views:BoolToColorConverter x:Key="BoolToColorConverter"/>
+    <views:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
+    <views:CompatibilityColorConverter x:Key="CompatibilityColorConverter"/>
+  </UserControl.Resources>
+</UserControl>

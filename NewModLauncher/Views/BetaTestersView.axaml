@@ -1,0 +1,116 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+             xmlns:Controls="clr-namespace:NewModLauncher.Controls;assembly=NewModLauncher"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NewModLauncher.Views.BetaTestersView">
+
+  <Grid RowDefinitions="Auto,*">
+    <!-- Header Card -->
+    <Border Background="#232334"
+            CornerRadius="12"
+            Padding="24"
+            BoxShadow="0 4 12 0 #15151580"
+            Margin="0,0,0,20">
+      <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
+        <TextBlock Text="Beta Testing Program"
+                  FontSize="22"
+                  FontWeight="Bold"
+                  Foreground="White"
+                  Margin="0,0,0,12"
+                  Grid.Row="0"
+                  Grid.Column="0" />
+
+        <TextBlock Grid.Row="1"
+                  Grid.Column="0"
+                  TextWrapping="Wrap"
+                  Foreground="#E0E0E0"
+                  Text="As a beta tester, you gain early access to experimental features before they're available to other users. Your feedback helps improve the final release quality." 
+                  Margin="0,0,0,16" />
+        
+        <!-- Status display -->
+        <StackPanel Grid.Row="2" 
+                    Grid.Column="0"
+                    Orientation="Vertical" 
+                    Spacing="10"
+                    Margin="0,0,0,16">
+          <StackPanel x:Name="StatusIndicator" 
+                      Orientation="Horizontal" 
+                      Spacing="8"
+                      IsVisible="False">
+            <TextBlock x:Name="StatusText"
+                       Foreground="#FFCC00"
+                       VerticalAlignment="Center"
+                       Text="Checking for updates..." />
+            <ProgressBar x:Name="CheckProgressBar"
+                         Width="200"
+                         Height="6"
+                         Minimum="0"
+                         Maximum="100"
+                         Value="0"
+                         CornerRadius="3" />
+          </StackPanel>
+        
+          <Button x:Name="ButtonCheckNightly"
+                  Content="Check Nightly Builds"
+                  Padding="16,10"
+                  CornerRadius="6"
+                  Background="#4B5CD7"
+                  Foreground="White"
+                  Click="OnCheckNightlyBuildsClick">
+            <Button.Styles>
+              <Style Selector="Button:pointerover">
+                <Setter Property="Background" Value="#6370DE"/>
+              </Style>
+            </Button.Styles>
+          </Button>
+
+          <Button x:Name="DownloadBuildButton"
+                  Content="Download Build"
+                  Padding="16,10"
+                  CornerRadius="6"
+                  Background="#00AA55"
+                  Foreground="White"
+                  IsVisible="False"
+                  Click="OnDownloadBuildClick">
+            <Button.Styles>
+              <Style Selector="Button:pointerover">
+                <Setter Property="Background" Value="#00CC66"/>
+              </Style>
+            </Button.Styles>
+          </Button>
+        </StackPanel>
+        
+        <!-- Badge -->
+        <Border Grid.Row="0"
+                Grid.Column="1"
+                Grid.RowSpan="2"
+                Background="#FF4757"
+                CornerRadius="8"
+                Padding="12,8"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right">
+          <TextBlock Text="NIGHTLY"
+                     FontWeight="Bold"
+                     Foreground="White"/>
+        </Border>
+      </Grid>
+    </Border>
+
+    <Border Grid.Row="1"
+            Background="#232334"
+            CornerRadius="12"
+            BoxShadow="0 4 12 0 #15151580"
+            Padding="24">
+      <Grid RowDefinitions="Auto">
+        <TextBlock Text="Nightly Build Changelog"
+                   FontSize="18"
+                   FontWeight="SemiBold"
+                   Foreground="White"
+                   Margin="0,0,0,16" />
+      </Grid>
+    </Border>
+  </Grid>
+</UserControl>

@@ -1,0 +1,177 @@
+
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NewModLauncher.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NewModLauncher.Views.SettingsView">
+  
+  <UserControl.Resources>
+    <local:BoolToNightlyTextConverter x:Key="BoolToNightlyTextConverter"/>
+  </UserControl.Resources>
+
+  <ScrollViewer>
+    <StackPanel Spacing="20" Margin="0,20,0,0">
+      <!-- Appearance Settings -->
+      <Border Background="#25FFFFFF"
+              CornerRadius="8"
+              Padding="20">
+        <StackPanel Spacing="16">
+          <TextBlock Text="Appearance Settings"
+                     FontSize="18"
+                     FontWeight="SemiBold"
+                     Foreground="White" />
+                     
+          <!-- Theme Settings -->
+          <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto" Margin="0,10,0,0">
+            <TextBlock Grid.Row="0" 
+                       Grid.Column="0"
+                       Text="Theme Mode:"
+                       VerticalAlignment="Center"
+                       Foreground="White"
+                       Width="150" />
+                       
+            <ToggleSwitch x:Name="DarkThemeToggle"
+                         Grid.Row="0"
+                         Grid.Column="1"
+                         OnContent="Dark Mode"
+                         OffContent="Light Mode"
+                         IsChecked="True"
+                         Foreground="White"
+                         Checked="OnThemeToggleChanged"
+                         Unchecked="OnThemeToggleChanged" />
+                         
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Background Style:"
+                       VerticalAlignment="Center"
+                       Foreground="White"
+                       Margin="0,16,0,0"
+                       Width="150" />
+                       
+            <ComboBox x:Name="GradientTypeComboBox"
+                     Grid.Row="1"
+                     Grid.Column="1"
+                     Width="200"
+                     SelectedIndex="1"
+                     HorizontalAlignment="Left"
+                     Margin="0,16,0,0">
+              <ComboBoxItem Content="None" />
+              <ComboBoxItem Content="Linear" />
+              <ComboBoxItem Content="Radial" />
+            </ComboBox>
+          </Grid>
+          
+          <!-- Colors -->
+          <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto" Margin="0,10,0,0">
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Start Color:"
+                       VerticalAlignment="Center"
+                       Foreground="White"
+                       Width="150" />
+                       
+            <ColorPicker x:Name="StartColorPicker"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Width="300"
+                        HorizontalAlignment="Left"
+                        Color="DarkBlue" />
+                        
+            <TextBlock Grid.Row="1"
+                       Grid.Column="0"
+                       Text="End Color:"
+                       VerticalAlignment="Center"
+                       Foreground="White"
+                       Margin="0,16,0,0"
+                       Width="150" />
+                       
+            <ColorPicker x:Name="EndColorPicker"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Width="300"
+                        HorizontalAlignment="Left"
+                        Margin="0,16,0,0"
+                        Color="#663399" />
+          </Grid>
+          
+          <Button Content="Apply Theme"
+                  Classes="secondary"
+                  Width="150"
+                  HorizontalAlignment="Right"
+                  Margin="0,10,0,0"
+                  Click="OnApplyGradientClick" />
+                       
+          <StackPanel Orientation="Horizontal" Spacing="16" Margin="0,10,0,0">
+            <TextBlock Text="Enable Animations:"
+                       VerticalAlignment="Center"
+                       Foreground="White"
+                       Width="150" />
+                       
+            <ToggleSwitch x:Name="AnimationsToggle"
+                         OnContent="Enabled"
+                         OffContent="Disabled"
+                         IsChecked="True"
+                         Foreground="White"
+                         Checked="OnAnimationsToggleChanged"
+                         Unchecked="OnAnimationsToggleChanged" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+      
+      <!-- Updates Settings -->
+      <Border Background="#25FFFFFF"
+              CornerRadius="8"
+              Padding="20">
+        <StackPanel Spacing="16">
+          <TextBlock Text="Update Settings"
+                     FontSize="18"
+                     FontWeight="SemiBold"
+                     Foreground="White" />
+                     
+          <StackPanel Orientation="Horizontal" Spacing="16" Margin="0,10,0,0">
+            
+            <Button Content="Check for Launcher Updates"
+                    Classes="secondary"
+                    Click="OnCheckLauncherUpdatesClick" />
+
+          </StackPanel>
+          </StackPanel>
+      </Border>
+      
+     <!-- Advanced Settings -->
+<Border Background="#25FFFFFF"
+        CornerRadius="8"
+        Padding="20">
+  <StackPanel Spacing="16" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <TextBlock Text="Advanced Settings"
+               FontSize="18"
+               FontWeight="SemiBold"
+               Foreground="White"
+               HorizontalAlignment="Center"/>
+    
+    <Button x:Name="NightlyBuildButton" Content="Register for Nightly Testing"
+            IsEnabled="False"
+            Width="240"
+            Classes="secondary"
+            HorizontalAlignment="Center"
+            Margin="0,10,0,0" />
+
+    <TextBlock Text="Coming soon"
+               Foreground="#FFCC00"
+               FontWeight="Bold"
+               FontSize="14"
+               HorizontalAlignment="Center"
+               Margin="0,4,0,0"/>
+
+    <TextBlock TextWrapping="Wrap"
+               Foreground="#B0B0B0"
+               FontSize="13"
+               Text="Warning: Nightly builds are experimental and may contain bugs or unfinished features. Use at your own risk."
+               HorizontalAlignment="Center"/>
+  </StackPanel>
+</Border>
+</StackPanel>
+  </ScrollViewer>
+</UserControl>

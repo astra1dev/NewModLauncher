@@ -1,0 +1,49 @@
+
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="NewModLauncher.SplashWindow"
+        Title="NewMod Launcher"
+        TransparencyLevelHint="Blur"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        Width="500"
+        Height="300"
+        CanResize="False"
+        SystemDecorations="None">
+        
+  <Grid>
+    <!-- Background with blur effect -->
+    <Panel>
+      <Image Source="Assets/background.png" Stretch="UniformToFill" Opacity="0.1" />
+      <Border Background="#1E1E1E" Opacity="0.8" CornerRadius="10" />
+    </Panel>
+    
+    <Grid RowDefinitions="*,Auto,*" ColumnDefinitions="*,Auto,*">
+      <StackPanel Grid.Row="1" 
+                  Grid.Column="1" 
+                  Spacing="20" 
+                  HorizontalAlignment="Center">
+        <Image Source="Assets/nm.ico" 
+               Width="80" 
+               Height="80" />
+               
+        <TextBlock Text="NewMod Launcher" 
+                   FontSize="24" 
+                   FontWeight="SemiBold"
+                   HorizontalAlignment="Center" />
+                   
+        <ProgressBar IsIndeterminate="True" 
+                     Width="300" 
+                     Height="4" 
+                     Foreground="#6264A7" 
+                     Background="#3E3E42" 
+                     CornerRadius="2" />
+                     
+        <TextBlock Text="Loading..."
+                   FontSize="14"
+                   Foreground="#B0B0B0"
+                   HorizontalAlignment="Center" />
+      </StackPanel>
+    </Grid>
+  </Grid>
+</Window>

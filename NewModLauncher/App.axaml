@@ -1,0 +1,135 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             xmlns:local="clr-namespace:NewModLauncher.Controls"
+             x:Class="NewModLauncher.App"
+             RequestedThemeVariant="Dark">
+
+  <Application.Styles>
+    <!-- Fluent Theme & third-party control styles -->
+    <FluentTheme />
+    <StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
+
+    <Style Selector="local|CustomProgressBar">
+  <Setter Property="Template">
+    <ControlTemplate>
+      <Grid>
+        <Border Background="#222" CornerRadius="4" Height="18">
+          <Panel>
+            <Border
+              Background="{TemplateBinding ProgressColor}"
+              CornerRadius="4"
+              Height="18"
+              Width="{Binding IndicatorWidth, RelativeSource={RelativeSource TemplatedParent}}" />
+          </Panel>
+        </Border>
+        <TextBlock
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          FontSize="14"
+          FontWeight="Medium"
+          Foreground="White"
+          Text="{Binding DownloadProgressText, RelativeSource={RelativeSource TemplatedParent}}"
+          IsVisible="{TemplateBinding ShowDownloadProgressText}" />
+      </Grid>
+    </ControlTemplate>
+  </Setter>
+</Style>
+
+
+    <!-- Modern UI Button Styles -->
+    <Style Selector="Button.primary">
+      <Setter Property="Background" Value="#6264A7"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="Padding" Value="16,8"/>
+      <Setter Property="CornerRadius" Value="4"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+    <Style Selector="Button.primary:pointerover">
+      <Setter Property="Background" Value="#7376B9"/>
+    </Style>
+    <Style Selector="Button.secondary">
+      <Setter Property="Background" Value="#2D2D30"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="Padding" Value="16,8"/>
+      <Setter Property="CornerRadius" Value="4"/>
+      <Setter Property="BorderBrush" Value="#444"/>
+      <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+    <Style Selector="Button.secondary:pointerover">
+      <Setter Property="Background" Value="#3E3E42"/>
+    </Style>
+    <Style Selector="TextBox">
+      <Setter Property="Background" Value="#2D2D30"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="CornerRadius" Value="4"/>
+      <Setter Property="Padding" Value="8"/>
+    </Style>
+    <Style Selector="ProgressBar">
+      <Setter Property="Foreground" Value="#6264A7"/>
+      <Setter Property="Background" Value="#3E3E42"/>
+      <Setter Property="Height" Value="6"/>
+      <Setter Property="CornerRadius" Value="3"/>
+    </Style>
+    <Style Selector="TabControl">
+      <Setter Property="Background" Value="Transparent"/>
+    </Style>
+    <Style Selector="TabItem">
+      <Setter Property="FontWeight" Value="Normal"/>
+      <Setter Property="Padding" Value="16,8"/>
+      <Setter Property="Margin" Value="0,0,4,0"/>
+      <Setter Property="Foreground" Value="#B0B0B0"/>
+    </Style>
+    <Style Selector="TabItem:selected">
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <!-- Animations -->
+    <Style Selector="Button">
+      <Setter Property="Transitions">
+        <Transitions>
+          <TransformOperationsTransition Property="RenderTransform" Duration="{DynamicResource GlobalAnimationDuration}" />
+          <BrushTransition Property="Background" Duration="{DynamicResource GlobalAnimationDuration}" />
+        </Transitions>
+      </Setter>
+    </Style>
+    <Style Selector="Button:pointerover">
+      <Setter Property="RenderTransform" Value="scale(1.05)" />
+    </Style>
+    <Style Selector="Button:pressed">
+      <Setter Property="RenderTransform" Value="scale(0.95)" />
+    </Style>
+    <!-- Card Animations -->
+    <Style Selector="Border.card">
+      <Setter Property="Transitions">
+        <Transitions>
+          <ThicknessTransition Property="Margin" Duration="0:0:0.2" />
+          <TransformOperationsTransition Property="RenderTransform" Duration="{DynamicResource GlobalAnimationDuration}" />
+        </Transitions>
+      </Setter>
+      <Setter Property="BoxShadow" Value="0 2 8 0 #20202040" />
+    </Style>
+    <Style Selector="Border.card:pointerover">
+      <Setter Property="BoxShadow" Value="0 6 16 0 #20202080" />
+      <Setter Property="RenderTransform" Value="translateY(-3px)" />
+    </Style>
+    <!-- TabControl Animations -->
+    <Style Selector="TabItem">
+      <Setter Property="Transitions">
+        <Transitions>
+          <ThicknessTransition Property="Margin" Duration="{DynamicResource GlobalAnimationDuration}" />
+          <TransformOperationsTransition Property="RenderTransform" Duration="{DynamicResource GlobalAnimationDuration}" />
+        </Transitions>
+      </Setter>
+    </Style>
+    <!-- Smooth fade-in for content areas -->
+    <Style Selector="UserControl">
+      <Setter Property="Transitions">
+        <Transitions>
+          <DoubleTransition Property="Opacity" Duration="{DynamicResource GlobalAnimationDuration}" />
+        </Transitions>
+      </Setter>
+      <Setter Property="Opacity" Value="1" />
+    </Style>
+  </Application.Styles>
+</Application>
